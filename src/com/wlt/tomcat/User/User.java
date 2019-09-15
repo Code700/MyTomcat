@@ -1,6 +1,7 @@
 package com.wlt.tomcat.User;
 
 import com.wlt.tomcat.inter.HttpServlet;
+import com.wlt.tomcat.modle.Content_Type;
 import com.wlt.tomcat.modle.Responce;
 import com.wlt.tomcat.server.ServerHolder;
 
@@ -20,7 +21,7 @@ public class User implements HttpServlet {
             String requestURI = responce.getRequest().getRequestURI();
             System.out.println("requestURI:" + requestURI);
 
-            responce.setContentType("text/html;charset=UTF-8");
+            responce.setContentType(Content_Type.TXT);
             String s;
             if (requestURI.startsWith("/server/User?name=")) {
                 String[] name = requestURI.split("=");

@@ -3,6 +3,7 @@ package com.wlt.tomcat.server;
 import com.wlt.tomcat.exception.NotContentTypeRuntimeException;
 import com.wlt.tomcat.inter.HttpServlet;
 import com.wlt.tomcat.inter.ServerletConcurrentHashMap;
+import com.wlt.tomcat.modle.Content_Type;
 import com.wlt.tomcat.modle.Header;
 import com.wlt.tomcat.modle.Request;
 import com.wlt.tomcat.modle.Responce;
@@ -129,7 +130,7 @@ public class ServerHolder {
                 if (file.isDirectory()) {
                     responce.setStatus("202");
                     responce.setDes("Disagreeing to Requests");
-                    responce.setContentType("text/html;charset=UTF-8");
+                    responce.setContentType(Content_Type.TXT);
                 } else {
                     responce.setStatus("200");
                     responce.setDes("OK");
@@ -137,13 +138,13 @@ public class ServerHolder {
                     //是一个文件，通过后缀名得到该文件的所属类型，只是部分常用文件类型
 
                     if (requestURI.endsWith("txt")) {
-                        responce.setContentType("text/html;charset=UTF-8");
+                        responce.setContentType(Content_Type.TXT);
                     } else if (requestURI.endsWith("jpg")) {
-                        responce.setContentType("image/jpeg");
+                        responce.setContentType(Content_Type.JPG);
                     } else if (requestURI.endsWith("png")) {
-                        responce.setContentType("image/png");
+                        responce.setContentType(Content_Type.PNG);
                     } else if (requestURI.endsWith("gif")) {
-                        responce.setContentType("image/gif");
+                        responce.setContentType(Content_Type.GIF);
                     }
 
                 }
@@ -158,7 +159,7 @@ public class ServerHolder {
                     responce.setStatus("404");
                     responce.setDes("Not File!");
                 }
-                responce.setContentType("text/html;charset=UTF-8");
+                responce.setContentType(Content_Type.TXT);
             }
 
             ByteBuffer buffer = null;
@@ -225,7 +226,7 @@ public class ServerHolder {
         } else {
             try {
                 String des = "404 没有这样的处理事件，喵喵喵……!";
-                responce1.setContentType("text/html;charset=UTF-8").setStatus("404").setDes(des);
+                responce1.setContentType(Content_Type.TXT).setStatus("404").setDes(des);
                 write(responce1, des.getBytes("UTF-8"));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
