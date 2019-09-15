@@ -19,6 +19,9 @@ import java.util.Set;
  */
 public class Server {
 
+    /**
+     * 通过Server的构造方法，初始化SERVER_INFO配置信息
+     */
     private Server() {
         new Thread(() -> new ParseServerHttpInfo().parse(Config_path.SERVER_INFO)).start();
     }
@@ -32,6 +35,9 @@ public class Server {
         return Instance.server;
     }
 
+    /**
+     * 静态内部类初始化对象
+     */
     static class Instance {
         public static Server server = new Server();
     }

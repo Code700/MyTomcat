@@ -208,17 +208,18 @@ public class ServerHolder {
     public void server(SelectionKey selectionKey, Request request) {
 
         Responce responce1 = new Responce(selectionKey, request);
-
         System.out.println(request.getRequestURI());
-
         String uri = request.getRequestURI();
         if (uri.indexOf("?") != -1) {
             uri = uri.split("[?]")[0];
         }
         System.out.println("uri:"+uri);
-        if (ServerletConcurrentHashMap.chm.containsKey(uri)) {
-            HttpServlet httpServlet = ServerletConcurrentHashMap.chm.get(uri);
 
+        if (ServerletConcurrentHashMap.chm.containsKey(uri)) {
+
+            //通过读取配置文件信息，反射出相应的请求处理对象
+            //调用servlet处理方法，并根据处理，回调回来做出相应的反馈
+            HttpServlet httpServlet = ServerletConcurrentHashMap.chm.get(uri);
             httpServlet.servlet(responce1, (responce, bytes) -> write(responce, bytes));
 
         } else {
