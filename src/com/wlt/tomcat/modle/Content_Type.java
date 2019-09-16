@@ -11,6 +11,7 @@ public class Content_Type {
     public static final String PNG = "image/png";
     public static final String JPG = "image/jpeg";
     public static final String GIF = "image/gif";
+    public static final String ICO = "image/x-icon";
     public static final String GSON = "";
     public static final String STREAM = "";
 

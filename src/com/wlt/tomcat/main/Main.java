@@ -1,6 +1,5 @@
 package com.wlt.tomcat.main;
 
-import com.wlt.tomcat.modle.Content_Type;
 import com.wlt.tomcat.server.Server;
 
 /**
@@ -10,6 +9,7 @@ import com.wlt.tomcat.server.Server;
 public class Main {
 
     public static void main(String[] args) {
+        //开启服务器
         Server.open().server(80);
     }
 

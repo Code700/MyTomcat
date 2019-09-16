@@ -3,10 +3,7 @@ package com.wlt.tomcat.server;
 import com.wlt.tomcat.exception.NotContentTypeRuntimeException;
 import com.wlt.tomcat.inter.HttpServlet;
 import com.wlt.tomcat.inter.ServerletConcurrentHashMap;
-import com.wlt.tomcat.modle.Content_Type;
-import com.wlt.tomcat.modle.Header;
-import com.wlt.tomcat.modle.Request;
-import com.wlt.tomcat.modle.Responce;
+import com.wlt.tomcat.modle.*;
 import com.wlt.tomcat.utils.FileUtils;
 import com.wlt.tomcat.utils.StringUtils;
 
@@ -124,13 +121,19 @@ public class ServerHolder {
             boolean isfile = file.exists();
             System.out.println(substring + ":" + isfile);
 
-            //文件是否存在
-            if (isfile) {
+            ByteBuffer buffer = null;
+
+            //文件是否存在,或者是头标文件请求
+            if (isfile || requestURI.equals("/favicon.ico")) {
                 //判断URI是否访问的是一个文件夹
                 if (file.isDirectory()) {
                     responce.setStatus("202");
                     responce.setDes("Disagreeing to Requests");
                     responce.setContentType(Content_Type.TXT);
+                    //文件夹
+                    String content = "拒绝访问文件夹，喵喵喵…";
+                    buffer = ByteBuffer.wrap(content.getBytes("UTF-8"));
+
                 } else {
                     responce.setStatus("200");
                     responce.setDes("OK");
@@ -145,48 +148,47 @@ public class ServerHolder {
                         responce.setContentType(Content_Type.PNG);
                     } else if (requestURI.endsWith("gif")) {
                         responce.setContentType(Content_Type.GIF);
+                    } else if (requestURI.endsWith("ico")) {
+                        responce.setContentType(Content_Type.ICO);
+                    }
+
+                    byte[] content;
+                    //文件
+                    if (requestURI.equals("/favicon.ico")) {
+                        content = FileUtils.getContent(Config_path.SERVER_ICO);
+                    } else {
+                        content = FileUtils.getContent(substring);
+                    }
+
+                    if (content != null) {
+                        buffer = ByteBuffer.wrap(content);
+                    } else {
+                        //需要遍历修改相应头信息，并需改文件类型
                     }
 
                 }
 
             } else {
-                //如果只是一个"/"说明访问的是服务器的默认端口号
+                //文件不存在，或是直接请求端口号
+                String content;
+                System.out.println(requestURI);
                 if (requestURI.equals("/")) {
+                    //如果只是一个"/"说明访问的是服务器的默认端口号
                     responce.setStatus("200");
                     responce.setDes("MAIN SERVER!");
+                    responce.setContentType(Content_Type.TXT);
+
+                    content = "欢迎访问【大菊为重】服务器，喵喵喵…";
+                    buffer = ByteBuffer.wrap(content.getBytes("UTF-8"));
+
                 } else {
                     //文件没有找到
                     responce.setStatus("404");
                     responce.setDes("Not File!");
-                }
-                responce.setContentType(Content_Type.TXT);
-            }
-
-            ByteBuffer buffer = null;
-
-            if (isfile) {
-
-                if (file.isDirectory()) {
-                    //文件夹
-                    String content = "拒绝访问文件夹，喵喵喵…";
-                    buffer = ByteBuffer.wrap(content.getBytes("UTF-8"));
-
-                } else {
-                    //文件
-                    byte[] content = FileUtils.getContent(substring);
-                    if (content != null) {
-                        buffer = ByteBuffer.wrap(content);
-                    }
-                }
-            } else {
-                String content;
-                if (requestURI.equals("/")) {
-                    content = "欢迎访问【大菊为重】服务器，喵喵喵…";
-                } else {
+                    responce.setContentType(Content_Type.TXT);
                     content = "没有找到你要的文件，喵喵喵喵…";
+                    buffer = ByteBuffer.wrap(content.getBytes("UTF-8"));
                 }
-                buffer = ByteBuffer.wrap(content.getBytes("UTF-8"));
-
             }
 
             write(responce, buffer.array());
@@ -214,7 +216,7 @@ public class ServerHolder {
         if (uri.indexOf("?") != -1) {
             uri = uri.split("[?]")[0];
         }
-        System.out.println("uri:"+uri);
+        System.out.println("uri:" + uri);
 
         if (ServerletConcurrentHashMap.chm.containsKey(uri)) {
 
@@ -266,6 +268,8 @@ public class ServerHolder {
                     sb.append(header.getName()).append(": ").append(header.getValue()).append("\r\n");
                 }
                 String responseHeader = sb.toString();
+
+                System.out.println(responseHeader);
 
                 // 响应空行
                 String emptyLine = "\r\n";

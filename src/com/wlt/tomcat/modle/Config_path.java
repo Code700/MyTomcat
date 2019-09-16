@@ -7,4 +7,5 @@ package com.wlt.tomcat.modle;
 public interface Config_path {
 
     String SERVER_INFO = "webapp/config/server-info.properties";
+    String SERVER_ICO = "webapp/ico/favicon.ico";
 }
