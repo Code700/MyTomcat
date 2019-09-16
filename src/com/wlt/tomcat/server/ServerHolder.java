@@ -197,7 +197,6 @@ public class ServerHolder {
 
     }
 
-
     /**
      * 处理动态事件
      *
@@ -229,10 +228,7 @@ public class ServerHolder {
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-
         }
-
-
     }
 
     /**
@@ -298,7 +294,5 @@ public class ServerHolder {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
-
 }
