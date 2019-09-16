@@ -114,12 +114,9 @@ public class ServerHolder {
 
             //获取请求过来的URI
             String requestURI = request.getRequestURI();
-            //URI带"/"，跳过这条线
-            String substring = requestURI.substring(1);
+            File file = new File(requestURI.substring(1));
 
-            File file = new File(substring);
             boolean isfile = file.exists();
-            System.out.println(substring + ":" + isfile);
 
             ByteBuffer buffer = null;
 
@@ -157,7 +154,7 @@ public class ServerHolder {
                     if (requestURI.equals("/favicon.ico")) {
                         content = FileUtils.getContent(Config_path.SERVER_ICO);
                     } else {
-                        content = FileUtils.getContent(substring);
+                        content = FileUtils.getContent(requestURI.substring(1));
                     }
 
                     if (content != null) {
@@ -171,12 +168,10 @@ public class ServerHolder {
             } else {
                 //文件不存在，或是直接请求端口号
                 String content;
-                System.out.println(requestURI);
                 if (requestURI.equals("/")) {
                     //如果只是一个"/"说明访问的是服务器的默认端口号
                     responce.setStatus("200");
                     responce.setDes("MAIN SERVER!");
-                    responce.setContentType(Content_Type.TXT);
 
                     content = "欢迎访问【大菊为重】服务器，喵喵喵…";
                     buffer = ByteBuffer.wrap(content.getBytes("UTF-8"));
@@ -185,10 +180,11 @@ public class ServerHolder {
                     //文件没有找到
                     responce.setStatus("404");
                     responce.setDes("Not File!");
-                    responce.setContentType(Content_Type.TXT);
+
                     content = "没有找到你要的文件，喵喵喵喵…";
                     buffer = ByteBuffer.wrap(content.getBytes("UTF-8"));
                 }
+                responce.setContentType(Content_Type.TXT);
             }
 
             write(responce, buffer.array());
