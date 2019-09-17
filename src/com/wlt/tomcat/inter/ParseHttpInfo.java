@@ -7,4 +7,6 @@ package com.wlt.tomcat.inter;
 public interface ParseHttpInfo {
 
     void parse(String filePath);
+
+
 }

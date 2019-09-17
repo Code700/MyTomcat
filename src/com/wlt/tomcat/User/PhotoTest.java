@@ -13,7 +13,7 @@ import com.wlt.tomcat.utils.FileUtils;
 public class PhotoTest implements HttpServlet {
     @Override
     public void servlet(Responce responce, ServerHolder.Writer writer) {
-        byte[] content = FileUtils.getContent("webapp/a.jpg");
+        byte[] content = FileUtils.getContent("webapp/images/a.jpg");
         responce.setContentType(Content_Type.JPG);
         writer.writer(responce, content);
     }

@@ -3,6 +3,7 @@ package com.wlt.tomcat.server;
 import com.wlt.tomcat.modle.Config_path;
 import com.wlt.tomcat.modle.Request;
 import com.wlt.tomcat.parse_config.ParseServerHttpInfo;
+import com.wlt.tomcat.parse_config.XmlDomParse;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -23,7 +24,8 @@ public class Server {
      * 通过Server的构造方法，初始化SERVER_INFO配置信息
      */
     private Server() {
-        new Thread(() -> new ParseServerHttpInfo().parse(Config_path.SERVER_INFO)).start();
+        //new Thread(() -> new ParseServerHttpInfo().parse(Config_path.SERVER_INFO)).start();
+        new Thread(() -> new XmlDomParse().parse(Config_path.SERVER_SERVLET_INF)).start();
     }
 
     /**
