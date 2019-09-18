@@ -9,4 +9,5 @@ public interface Config_path {
     String SERVER_INFO = "webapp/config/server-info.properties";
     String SERVER_ICO = "webapp/ico/favicon.ico";
     String SERVER_SERVLET_INF = "webapp/WEB-INF/web.xml";
+    String SERVER_ANNO = "src/com/wlt/tomcat/servlet";
 }

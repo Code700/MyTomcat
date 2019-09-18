@@ -1,5 +1,6 @@
-package com.wlt.tomcat.User;
+package com.wlt.tomcat.servlet;
 
+import com.wlt.tomcat.anno.WebServlet;
 import com.wlt.tomcat.inter.HttpServlet;
 import com.wlt.tomcat.modle.Content_Type;
 import com.wlt.tomcat.modle.Responce;
@@ -13,6 +14,7 @@ import java.net.URLEncoder;
  * @author 王立腾
  * @date 2019-09-15 12:04
  */
+@WebServlet(urlPatterns = "/server/user")
 public class User implements HttpServlet {
 
     @Override

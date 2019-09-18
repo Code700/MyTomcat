@@ -2,6 +2,7 @@ package com.wlt.tomcat.server;
 
 import com.wlt.tomcat.modle.Config_path;
 import com.wlt.tomcat.modle.Request;
+import com.wlt.tomcat.parse_config.AnnoParseServerHttpInfo;
 import com.wlt.tomcat.parse_config.ParseServerHttpInfo;
 import com.wlt.tomcat.parse_config.XmlDomParse;
 
@@ -25,7 +26,8 @@ public class Server {
      */
     private Server() {
         //new Thread(() -> new ParseServerHttpInfo().parse(Config_path.SERVER_INFO)).start();
-        new Thread(() -> new XmlDomParse().parse(Config_path.SERVER_SERVLET_INF)).start();
+        //new Thread(() -> new XmlDomParse().parse(Config_path.SERVER_SERVLET_INF)).start();
+        new Thread(() -> new AnnoParseServerHttpInfo().parse(Config_path.SERVER_ANNO)).start();
     }
 
     /**

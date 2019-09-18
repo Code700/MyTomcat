@@ -6,12 +6,12 @@
 
     <servlet>
         <servlet-name>User</servlet-name>
-        <servlet-class>com.wlt.tomcat.User.User</servlet-class>
+        <servlet-class>com.wlt.tomcat.servlet.User</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>PhotoTest</servlet-name>
-        <servlet-class>com.wlt.tomcat.User.PhotoTest</servlet-class>
+        <servlet-class>com.wlt.tomcat.servlet.PhotoTest</servlet-class>
     </servlet>
 
 

@@ -1,5 +1,6 @@
 package com.wlt.tomcat.main;
 
+import com.wlt.tomcat.parse_config.AnnoParseServerHttpInfo;
 import com.wlt.tomcat.server.Server;
 
 import java.lang.reflect.Method;
@@ -17,10 +18,14 @@ public class Main {
         //开启服务器
         Server.open().server(80);
 
+        //AnnoParseServerHttpInfo info = new AnnoParseServerHttpInfo();
+        //info.parse("src/com/wlt/tomcat/servlet");
 
-        //fascinating();
+
     }
 
+
+    /***********************************************************************************************/
     /**
      * 一个有趣的功能
      * 获取一个类的泛型
